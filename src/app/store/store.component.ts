@@ -3,7 +3,7 @@ import { Product } from "../model/product.model";
 import { ProductRepository } from "../model/product.repository";
 
 @Component({
-    selector: "store",
+    selector: "app-store",
     templateUrl: "store.component.html"
 })
 
