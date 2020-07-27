@@ -9,12 +9,15 @@ import { ProductRepository } from "../model/product.repository";
 
 export class StoreComponent {
     public selectedCategory = null;
+    public productPerPage = 4;
+    public selectedPage = 1;
     
     constructor(private reposiory: ProductRepository) {}
 
     get products(): Product[] {
-        return this.reposiory.gerProducts(this.selectedCategory);
-        // return this.reposiory.gerProducts();
+        let pageIndex = (this.selectedPage - 1) * this.productPerPage;
+        return this.reposiory.gerProducts(this.selectedCategory)
+            .slice(pageIndex, pageIndex + this.productPerPage);
     }
 
     get categories(): string[] {
@@ -25,4 +28,18 @@ export class StoreComponent {
         this.selectedCategory = newCategory;
     }
 
+    changePage(newPage: number) {
+        this.selectedPage = newPage;
+    }
+    
+    changePageSize(newSize: number) {
+        this.productPerPage = Number(newSize);
+        this.changePage(1);
+    }
+
+    get pageNumbers(): number[] {
+        return Array(Math.ceil(this.reposiory
+            .gerProducts(this.selectedCategory).length / this.productPerPage))
+                .fill(0).map((x,i) => i + 1);
+    }
 }
