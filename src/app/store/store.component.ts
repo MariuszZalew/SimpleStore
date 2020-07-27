@@ -37,9 +37,13 @@ export class StoreComponent {
         this.changePage(1);
     }
 
+    get pageCount(): number {
+        return Math.ceil(this.reposiory.gerProducts(this.selectedCategory).length / this.productPerPage);
+    }
+
     get pageNumbers(): number[] {
         return Array(Math.ceil(this.reposiory
             .gerProducts(this.selectedCategory).length / this.productPerPage))
-                .fill(0).map((x,i) => i + 1);
+                .fill(0).map( (x, i) => i + 1);
     }
 }
