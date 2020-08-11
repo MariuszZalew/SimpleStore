@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { StoreModule } from './store/store.module';
 import { RouterModule } from "@angular/router";
@@ -19,6 +18,10 @@ import { CheckoutComponent } from './store/checkout.component';
       { path: "store", component: StoreComponent },
       { path: "cart", component: CartDetailComponent },
       { path: "checkout", component: CheckoutComponent },
+      { path: "admin",
+        loadChildren: () => import("./admin/admin.module")
+          .then(m => m.AdminModule)
+      },
       { path: "**", redirectTo: "/store" }
     ])
   ],
